@@ -1,9 +1,9 @@
 void settings() {
-  size(1000, 1000, P2D);
+  fullScreen(P2D);
 }
 void setup () {
 }
-My3DPoint eye = new My3DPoint(0, 0, -5000);
+My3DPoint eye = new My3DPoint(0, 0, 5000);
 My3DPoint origin = new My3DPoint(0, 0, 0);
 My3DBox input3DBox = new My3DBox(origin, 100, 150, 300);
 
@@ -11,27 +11,26 @@ My3DBox input3DBox = new My3DBox(origin, 100, 150, 300);
 
 void draw() {
   background(255, 255, 255);
-  My3DBox box = transformBox(input3DBox, translationMatrix(200, 200, 0));
+  My3DBox box = transformBox(input3DBox, translationMatrix(width/2, height/2, 0));
+  strokeWeight(3);
   projectBox(eye, box).render();
 }
 
-void mouseDragged() {
-  input3DBox = transformBox(input3DBox, scaleMatrix(1.01, 1.01, 1.01));
-}
+
 
 void keyPressed() {
   float angle = PI/20;
   if (keyCode == UP) {
-    input3DBox = transformBox(input3DBox, rotateXMatrix(angle));
+    input3DBox = transformBox(input3DBox, rotateXMatrix(-angle));
   }
   if (keyCode == RIGHT) {
-    input3DBox = transformBox(input3DBox, rotateYMatrix(-angle));
-  }
-  if (keyCode == LEFT) {
     input3DBox = transformBox(input3DBox, rotateYMatrix(angle));
   }
+  if (keyCode == LEFT) {
+    input3DBox = transformBox(input3DBox, rotateYMatrix(-angle));
+  }
   if (keyCode == DOWN) {
-    input3DBox = transformBox(input3DBox, rotateXMatrix(-angle));
+    input3DBox = transformBox(input3DBox, rotateXMatrix(angle));
   }
 }
 

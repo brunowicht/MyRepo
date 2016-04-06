@@ -1,20 +1,21 @@
 void settings() {
-  size(1000, 1000, P2D);
+  fullScreen(P2D);
 }
 void setup () {
 }
 void draw() {
   background(255, 255, 255);
-  My3DPoint eye = new My3DPoint(0, 0, -5000);
+  My3DPoint eye = new My3DPoint(0, 0, 5000);
   My3DPoint origin = new My3DPoint(0, 0, 0);
+  strokeWeight(3);
 
-  My3DBox input3DBox = new My3DBox(origin, 100, 150, 300);
+  My3DBox input3DBox = new My3DBox(origin, 100, 150, 250);
   //rotated around x
   float[][] transform1 = rotateXMatrix(PI/8);
   input3DBox = transformBox(input3DBox, transform1);
   projectBox(eye, input3DBox).render();
   //rotated and translated
-  float[][] transform2 = translationMatrix(200, 200, 0);
+  float[][] transform2 = translationMatrix(300, 150, 0);
   input3DBox = transformBox(input3DBox, transform2);
   projectBox(eye, input3DBox).render();
   //rotated, translated, and scaled
@@ -58,15 +59,18 @@ class My2DBox {
   void render() {
     for (int i = 0; i<4; ++i) {
       int j = (i+1)%4;
+      stroke(color(0, 100, 200));
       line(s[i].x, s[i].y, s[j].x, s[j].y);
       i = i+4;
       j = j+4;
+      stroke(color(200, 0, 100));
       line(s[i].x, s[i].y, s[j].x, s[j].y);
       i = i-4;
       j = j-4;
     }
     for (int i = 0; i < 4; ++i) {
       int j = i+4;
+      stroke(color(100, 200, 0));
       line(s[i].x, s[i].y, s[j].x, s[j].y);
     }
   }
